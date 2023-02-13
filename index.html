@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<link rel="icon" href="https://hiepdeep.github.io/cdn/favicon/favicon.svg">
+		<title>HiepDeep | tsparticles</title>
+		<meta name="title" content="HiepDeep | tsparticles">
+		<meta name="description" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry">
+		<link rel="stylesheet" href="https://hiepdeep.github.io/cdn/style.css">
+		<style type="text/css">
+			body {
+				background: #E9EBEE;
+			}
+
+			#tsparticles {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+			}
+		</style>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js'></script>
+	</head>
+	<body>
+		<div id="tsparticles"></div>
+		<script type="text/javascript">
+			tsParticles.load("tsparticles", {
+				fpsLimit: 60,
+				particles: {
+					number: {
+						value: 100
+					},
+					color: {
+						value: ["#cc6363", "#63cc63", "#6363cc"]
+					},
+					size: {
+						// value: 4
+					},
+					size: {
+						value: 10,
+						random: true,
+						size_min: 1
+					},
+					opacity: {
+						value: 1
+					},
+					shape: {
+						type: "circle", // ["circle", "square", "star", "spades", "hearts", "diamonds", "clubs"]
+					},
+					links: {
+						enable: true,
+						color: "random",
+						distance: 150,
+						opacity: 0.4,
+						width: 1
+					},
+					move: {
+						enable: true,
+						speed: 2,
+						direction: "none",
+						random: false,
+						straight: false,
+						outModes: "bounce" // bounce, out
+						
+					}
+				},
+				interactivity: {
+					events: {
+						onHover: {
+							enable: true,
+							mode: "grab" // repulse, grab
+						},
+						onClick: {
+							enable: true,
+							mode: "push"
+						},
+						resize: true
+					},
+					modes: {
+			     		repulse: {
+							distance: 150,
+							duration: 0.4
+						},
+						grab: {
+							distance: 150,
+							links: {
+								opacity: 1
+							}
+						},
+						push: {
+							quantity: 1
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
