@@ -19,31 +19,6 @@
 				overflow: hidden;
 				cursor: none;
 			}
-			body:hover #axisX {
-				left: var(--x);
-			}
-			body:hover #axisY {
-				top: var(--y);
-			}
-			#axisX,
-			#axisY {
-				position: absolute;
-				background: violet;
-				transition: 0.25s ease-out;
-				box-shadow: 0 0 30px black;
-			}
-			#axisX {
-				width: 2px;
-				height: 100%;
-				top: 0;
-				left: -30px;
-			}
-			#axisY {
-				width: 100%;
-				height: 2px;
-				top: -30px;
-				left: 0;
-			}
 			.clock {
 				width: 240px;
 				height: 240px;
@@ -138,8 +113,6 @@
 		</style>
 	</head>
 	<body>
-		<div id="axisX"></div>
-		<div id="axisY"></div>
 		<div class="clock">
 			<div class="hand minutes"></div>
 			<div class="hand hours"></div>
@@ -155,15 +128,6 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			document.addEventListener("mousemove", function(event) {
-				myFunction(event);
-			});
-			function myFunction(e) {
-				let _x = e.clientX;
-				let _y = e.clientY;
-				axisX.style.setProperty("--x", Math.floor(_x - (2 / 2)) + "px");
-				axisY.style.setProperty("--y", Math.floor(_y - (2 / 2)) + "px");
-			}
 			const hours = document.querySelector('.hours');
 			const minutes = document.querySelector('.minutes');
 			const seconds = document.querySelector('.seconds');
