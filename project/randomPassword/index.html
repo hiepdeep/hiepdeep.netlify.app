@@ -204,10 +204,12 @@
 		<div class="ctn">
 			<button onclick="generator()">Random Password</button>
 			<div class="dataBox">
-				<div class="inPut" id="yy"><input id="newPass" type="text" placeholder="Password" value=""></div>
+				<div class="inPut">
+					<input id="newPass" type="text" placeholder="Password" value="">
+					<div id="hover"></div>
+				</div>
 				<div class="inRange">
 					<input id="inRange" type="range" max="32" min="2" step="1" value="8">
-					<div id="hover"></div>
 				</div>
 				<div class="option">
 					<label for="id_txt1" onclick="generator()">
@@ -275,7 +277,6 @@
 				hover.style.height = "50px";
 				hover.style.width = "50px";
 			});
-
 			newPass.addEventListener("mouseleave", (e) => {
 				hover.style.height = "0";
 				hover.style.width = "0";
