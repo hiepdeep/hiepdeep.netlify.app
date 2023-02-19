@@ -38,10 +38,11 @@
 			}
 			.ctn .dataBox .inPut {
 				width: 100%;
-				height: 50px;
+				height: 100px;
 				position: relative;
 				background: #f5f5f5;
 				transition: 0.5s;
+				overflow: hidden;
 			}
 			.ctn .dataBox .inPut:hover {
 				background: #e5e5e5;
@@ -57,9 +58,33 @@
 				color: #8898AA;
 				text-align: center;
 				cursor: pointer;
+				position: relative;
+				mix-blend-mode: difference;
+				z-index: 9999;
+				cursor: none;
 			}
 			.ctn .dataBox .inPut input::placeholder {
 				opacity: 0.5;
+			}
+			.ctn .dataBox .inPut #hover {
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-radius: 50%;
+				background: #0a0e31;
+				left: 0;
+				top: 0;
+				overflow: hidden;
+				transition: 0.1s;
+			}
+			.ctn .dataBox .inPut #hover:before {
+				content: "";
+				font: 24px FontAwesome;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #fff;
+				height: 100%;
 			}
 			.ctn .dataBox .inRange {
 				height: 26px;
@@ -182,6 +207,7 @@
 				<div class="inPut" id="yy"><input id="newPass" type="text" placeholder="Password" value=""></div>
 				<div class="inRange">
 					<input id="inRange" type="range" max="32" min="2" step="1" value="8">
+					<div id="hover"></div>
 				</div>
 				<div class="option">
 					<label for="id_txt1" onclick="generator()">
@@ -206,10 +232,10 @@
 		</div>
 		<div id="valPass">8</div>
 		<script type="text/javascript">
+			generator();
 			inRange.addEventListener("input", () => {
 				generator();
 			});
-
 			function generator() {
 				console.clear();
 				let lg = inRange.value;
@@ -236,15 +262,24 @@
 				}
 				valPass.innerText = checknum(inRange.value);
 			}
-
-			generator();
-
 			function checknum(i) {
 				if (i < 10) {
 					i = "0" + i;
 				}
 				return i;
 			}
+			newPass.addEventListener("mousemove", (e) => {
+				e.preventDefault();
+				hover.style.setProperty("top", e.offsetY - (hover.offsetHeight / 2 ) + "px");
+				hover.style.setProperty("left", e.offsetX - (hover.offsetWidth / 2 ) + "px");
+				hover.style.height = "50px";
+				hover.style.width = "50px";
+			});
+
+			newPass.addEventListener("mouseleave", (e) => {
+				hover.style.height = "0";
+				hover.style.width = "0";
+			});
 		</script>
 	</body>
 </html>
