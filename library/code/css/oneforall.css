@@ -56,13 +56,13 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, caption, center, ci
 }
 
 ::-moz-selection {
-	color: rgba(255, 255, 255);
-	background: #1CC88A;
+	color: #fff;
+	background: #FFA07A;
 }
 
 ::selection {
-	color: rgba(255, 255, 255);
-	background: #1CC88A;
+	color: #fff;
+	background: #FFA07A;
 }
 
 ::-webkit-scrollbar-track {
