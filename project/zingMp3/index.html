@@ -581,6 +581,7 @@
 			function init(indexSong) {
 				myAudio.setAttribute("src", "http://api.mp3.zing.vn/api/streaming/audio/" + regId(tracks[indexSong].url) + "/320");
 				myAudio.currentTime = 0;
+				stt.textContent = "Playing...";
 				// console.log($(".song-playing .metaSong #title")[0]);
 			}
 			function formatTimer(number) {
