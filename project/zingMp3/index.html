@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<link rel="icon" href="../../library/favicon/favicon.svg">
+		<title>HiepDeep | Zing MP3</title>
+		<meta name="title" content="HiepDeep | Zing MP3">
+		<meta name="description" content="HiepDeep | Zing MP3">
+		<meta http-equiv="refresh" content="10"/>
+		<link rel="stylesheet" href="../../library/code/css/oneforall.css">
+		<style type="text/css">
+			::-webkit-scrollbar {
+				width: 0;
+				height: 0;
+			}
+			body {
+				background: #0665a2;
+				font-family: "Bai Jamjuree", sans-serif;
+				letter-spacing: 0.04em;
+			}
+			.msPlayer {
+				width: 100%;
+				max-width: 960px;
+				margin: 0 auto;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				padding: 18px;
+				user-select: none;
+				transition: opacity 0.25s;
+			}
+			.msPlayer .msData {
+				flex-shrink: 0;
+				display: flex;
+				justify-content: space-between;
+				padding: 0 9px;
+				margin-bottom: 18px;
+			}
+			.msPlayer .msData .col {
+				color: #E9EBEE;
+				font-size: 12px;
+				font-weight: bold;
+			}
+			.msPlayer .msControl {
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				gap: 18px;
+				padding: 0 9px 18px;
+				margin-bottom: 9px;
+				border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+			}
+			.msPlayer .msControl .btn {
+				flex-shrink: 0;
+				background: rgba(0, 0, 0, 0.1);
+				color: rgba(255, 255, 255, 0.8);
+				border: 0;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				font-size: 20px;
+				overflow: hidden;
+				transition: 0.15s;
+			}
+			.msPlayer .msControl .btn:hover {
+				background: rgba(0, 0, 0, 0.3);
+				color: #fff;
+			}
+			.msPlayer .msControl .durationBar {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				gap: 18px;
+				height: 26px;
+			}
+			.msPlayer .msControl .durationBar #durationBar {
+				outline: none;
+				width: 100%;
+				height: 6px;
+				background-color: rgba(0, 0, 0, 0.1);
+				background-image: linear-gradient(to right, #00b3ff, #00b3ff);
+				background-size: 0% 100%;
+				background-repeat: no-repeat;
+				cursor: pointer;
+				-webkit-appearance: none;
+				transition: 0.15s;
+			}
+			.msPlayer .msControl .durationBar #durationBar::-webkit-slider-thumb {
+				width: 0;
+				height: 26px;
+				background: orange;
+				-webkit-appearance: none;
+			}
+			.msPlayer .msControl .durationBar #durationBar:hover {
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+			.msPlayer .msControl .timers {
+				flex-shrink: 0;
+				font: bold 14px/26px "Space Mono", monospace;
+				color: rgba(255, 255, 255, 0.8);
+				cursor: none;
+				user-select: none;
+			}
+			.msPlayer .msControl .mute {
+				display: flex;
+				align-items: center;
+				gap: 18px;
+				height: 26px;
+			}
+			.msPlayer .msControl .mute #muteIcon {
+				flex-shrink: 0;
+				background: rgba(0, 0, 0, 0.1);
+				color: rgba(255, 255, 255, 0.8);
+				border: 0;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				font-size: 20px;
+				overflow: hidden;
+				transition: 0.15s;
+			}
+			.msPlayer .msControl .mute #muteIcon:hover {
+				background: rgba(0, 0, 0, 0.3);
+				color: #fff;
+			}
+			.msPlayer .msControl .mute #mute {
+				outline: none;
+				width: 100px;
+				height: 6px;
+				background-color: rgba(0, 0, 0, 0.1);
+				background-image: linear-gradient(to right, #00b3ff, #00b3ff);
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+				cursor: pointer;
+				-webkit-appearance: none;
+				transition: 0.15s;
+			}
+			.msPlayer .msControl .mute #mute::-webkit-slider-thumb {
+				width: 0px;
+				height: 26px;
+				background: transparent;
+				-webkit-appearance: none;
+			}
+			.msPlayer .msControl .mute #mute:hover {
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+			.msPlayer .msPlayList {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				overflow-y: scroll;
+				scroll-behavior: smooth;
+			}
+			.msPlayer .msPlayList #song {
+				display: flex;
+				gap: 18px;
+				padding: 9px;
+			}
+			.msPlayer .msPlayList #song:hover {
+				background: rgba(0, 0, 0, 0.1);
+			}
+			.msPlayer .msPlayList #song.song-playing {
+				background: rgba(0, 0, 0, 0.1);
+			}
+			.msPlayer .msPlayList #song.song-playing .metaSong #title {
+				opacity: 1;
+				color: #00b3ff;
+			}
+			.msPlayer .msPlayList #song #thumb {
+				flex-shrink: 0;
+				width: 30px;
+				height: 30px;
+				overflow: hidden;
+				transition: 0.25s;
+				position: relative;
+				box-shadow: 0px 10px 20px -10px #9E9E9E, 0 0 0 0 rgba(29, 34, 54, 0.85);
+			}
+			.msPlayer .msPlayList #song #thumb:before,
+			.msPlayer .msPlayList #song #thumb:after {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			.msPlayer .msPlayList #song #thumb:before {
+				background-image: url("https://hiepdeep.github.io/cdn/aPlayer/zingMp3/thumb/no_thumb.jpg");
+			}
+			.msPlayer .msPlayList #song #thumb:after {
+				background-image: var(--src-thumb);
+			}
+			.msPlayer .msPlayList #song .metaSong {
+				line-height: 30px;
+				font-size: 14px;
+				color: #fff;
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+			}
+			.msPlayer .msPlayList #song .metaSong #title {
+				opacity: 0.87;
+				cursor: pointer;
+			}
+			.msPlayer .msPlayList #song .metaSong #title:hover {
+				opacity: 1;
+				color: #00b3ff;
+			}
+			.msPlayer .msPlayList #song .metaSong #singer {
+				opacity: 0.54;
+			}
+			.msPlayer .msPlayList #song .metaSong #singer a {
+				color: #fff;
+				display: inline-block;
+			}
+			.msPlayer .msPlayList #song .metaSong #singer a:hover {
+				text-decoration: underline;
+			}
+			#preloader {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: #212121;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				visibility: visible;
+				opacity: 1;
+				z-index: 9999999;
+				transition: 0.25s;
+				transition-delay: 0.25s;
+			}
+			#preloader.finished {
+				visibility: hidden;
+				opacity: 0;
+			}
+			#preloader svg {
+				border-radius: 50%;
+				width: 96px;
+				height: 96px;
+				animation: rotate 2s linear infinite;
+			}
+			#preloader svg circle {
+				fill: none;
+				stroke-width: 20px;
+				stroke-linecap: round;
+				transition: 1s linear;
+				animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+			}
+			@keyframes rotate {
+				0% {
+					transform: rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+			@keyframes dash {
+				0% {
+					stroke-dasharray: 0, 565;
+					stroke-dashoffset: 565;
+				}
+
+				50% {
+					stroke-dasharray: 440, 250;
+					stroke-dashoffset: 565;
+				}
+
+				100% {
+					stroke-dasharray: 565, 565;
+					stroke-dashoffset: 565;
+				}
+			}
+			@keyframes color {
+				0% {
+					stroke: #ea4335;
+				}
+
+				25% {
+					stroke: #4285f4;
+				}
+
+				50% {
+					stroke: #34a853;
+				}
+
+				75% {
+					stroke: #fbbc04;
+				}
+
+				100% {
+					stroke: #7248b9;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="preloader">
+			<svg viewbox="0 0 240 240">
+				<circle cx="120" cy="120" r="90"></circle>
+			</svg>
+		</div>
+		<div class="msPlayer">
+			<div class="msData">
+				<div class="col" id="stt">Paused...</div>
+				<div class="col" id="ctn">All This Is - Joe L.'s Studio</div>
+			</div>
+			<div class="msControl">
+				<button class="btn material-icons" id="repl">replay</button>
+				<button class="btn material-icons" id="play">play_arrow</button>
+				<div class="durationBar">
+					<input id="durationBar" type="range" min="0" max="100" value="0">
+				</div>
+				<div class="timers">
+					<span id="crtTime">00:00</span> / <span id="drnTime">88:88</span>
+				</div>
+				<div class="mute">
+					<button class="btn material-icons" id="muteIcon">volume_up</button>
+					<input id="mute" type="range" min="0" max="1" value="0.75" step="0.25">
+				</div>
+				<button class="btn material-icons" id="loop">repeat</button>
+			</div>
+			<div class="msPlayList"></div>
+		</div>
+		<script type="text/javascript">
+			console.clear();
+			window.addEventListener("load", (event) => {
+				preloader.classList.add("finished");
+			});
+			let tracks = [
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Bat-Tinh-Yeu-Len-Tang-Duy-Tan-Hoa-Minzy/Z6708WAZ.html",
+					"key": "LHxnyLZzvBsmxQdyHyvmLntZhsxCbXkHS"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/4-Mua-Thuong-Em-Ballad-Version-Lap-Nguyen/Z6UCF86C.html",
+					"key": "knJmyZklmHlLsHxtHyvnkGykhNxhbaSHH"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Tro-Dua-Final-Version-Quang-Dang-Tran-Kanzi/ZZW7A099.html",
+					"key": "ZHcmTLkbHxLaZNstmyFnZnyZhaJhvaSia"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/Ngay-Mai-Em-Di-Mat-Khai-Dang-Dat-G/ZZEF769O.html",
+					"key": "ZnxHtLZBBiZBgZEymyvmZmTkhNJGdphkN"
+				},
+				// {
+				// 	"url": "view-source:https://mp3.zing.vn/bai-hat/So-Ngo-Nhan-Quan-Dao/IWABA8AO.html",
+				// 	"key": "kHcHyQdiCpZWyHtFHZHyLCscmVaJsa"
+				// },
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Nguoc-Chieu-Chu-Thuy-Quynh/ZZCEDCZA.html",
+					"key": "LHxHyZLdZNNCicCyntFmkmtLCNxHBiGap"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Cau-Vong-Tinh-Yeu-Son-KB/ZUIIA0O7.html",
+					"key": "knJGtkZmFpRxmakyHTbmZmyZCNJHdiDWp"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Suot-Doi-Khong-Xung-Khai-Dang-Vuong-Anh-Tu/ZO9AEOF6.html",
+					"key": "LmJmykmilcLCCBmyHtFmZntkCNcHduzGG"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Chieu-Thu-Hoa-Bong-Nang-DatKaa/ZOOI7Z87.html",
+					"key": "ZHJmTLmcaRmNGsRTmyFGZHtLXacmdipmz"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-That-Long-Thuong-Em-Ly-Tuan-Kiet/ZWAF6AUE.html",
+					"key": "LHxHtknsRBJzQFCyHTFmLHykCaJHduXLX"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Buoc-Qua-Doi-Nhau-Le-Bao-Binh/ZWAE8CBC.html",
+					"key": "ZHcmTLmsudFaJmlyHybnLnTZgNJnBismm"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Thay-Toi-Yeu-Co-Ay-Thanh-Hung/ZWAEU0EE.html",
+					"key": "LnxGtLmsRBHcduxynyFmkHyZXaJnBRNFz"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Dung-Nguoi-Dung-Thoi-Diem-Thanh-Hung/ZWAWZ0AI.html",
+					"key": "ZnxHyLHNxQbWiJpyGTFHLHyZCNJGdicGi"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Roi-Bo-Hoa-Minzy/ZW9C0DOU.html",
+					"key": "LmJHtLnNJLZWpHJTnyDHZGTZCNJGdRRpx"
+				},
+				{
+					"url": "view-source:https://mp3.zing.vn/bai-hat/Chap-Nhan-Hoa-Minzy/ZW9EAI76.html",
+					"key": "kGxntZmscFcSWdltHyDnkHyLgaxmBEJhC"
+				},
+				{
+					"url": "",
+					"key": ""
+				}
+			]
+			let indexSong   = 0,
+				playStatus  = "play_arrow",	// play_arrow | pause
+				loopStatus  = "repeat",		// repeat | repeat_one | shuffle
+				createAudio = document.createElement("audio");
+			if (sessionStorage.getItem("indexSong")) {
+				indexSong = sessionStorage.getItem("indexSong");
+			}
+			if (sessionStorage.getItem("loopStatus")) {
+				loopStatus = sessionStorage.getItem("loopStatus");
+			}
+			createAudio.setAttribute("id", "myAudio");
+			createAudio.setAttribute("preload", "");
+			document.body.appendChild(createAudio);
+			let pll = "";
+			for (let i = 0; i < tracks.length; i++) {
+				if (!tracks[i].url == "" && !tracks[i].key == "") {
+					pll += `
+						<div id="song" class="">
+							<div id="thumb"></div>
+							<div class="metaSong">
+								<div id="title"></div>
+								<div id="singer">
+									<a href="" target="_blank"></a>
+								</div>
+							</div>
+						</div>
+					`
+				}
+			}
+			$(".msPlayList")[0].innerHTML += pll;
+			for (let i = 0; i < tracks.length; i++) {
+				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[i].key}`;
+				async function getapi(url) {
+					const response = await fetch(url);
+					var data = await response.json();
+					thumb[i].style.setProperty("--src-thumb", "url(" + data.data.thumbnail + ")");
+					title[i].innerHTML = `${data.data.name}`;
+				}
+				getapi(apiSong);
+			}
+			for (let i = 0; i < tracks.length; i++) {
+				const apiSong = `https://mp3.zing.vn/xhr/media/get-info?type=audio&id=${regId(tracks[i].url)}`;
+				async function getapi(url) {
+					const response = await fetch(url);
+					var data = await response.json();
+					var sgs = "";
+					for (let i = 1; i < data.data.artists.length; i++) {
+						sgs += `, <a href='https://zingmp3.vn${data.data.artists[i].link}' target='_blank'>${data.data.artists[i].name}</a>`;
+					}
+					singer[i].innerHTML = `<a href='https://zingmp3.vn${data.data.artists[0].link}' target='_blank'>${data.data.artists[0].name}</a>` + sgs;
+				}
+				getapi(apiSong);
+			}
+			init(indexSong);
+			session(indexSong);
+			session(loopStatus);
+			const btnPlayList = document.querySelectorAll(".msPlayer .msPlayList #song");
+			song[indexSong].setAttribute("class", "song-playing");
+			for (let l = 0; l < btnPlayList.length; l++) {
+				btnPlayList[l].addEventListener("click", function() {
+					indexSong = l;
+					init(indexSong);
+					// scrollWin(indexSong);
+					session(indexSong);
+					myAudio.currentTime = 0;
+					myAudio.play();
+					playStatus = "pause";
+					playState.textContent = "pause";
+					for (let a = 0; a < btnPlayList.length; a++) {
+						song[a].classList.remove("song-playing");
+						song[l].setAttribute("class", "song-playing");
+					}
+				});
+			}
+			setInterval(realTime, 0);
+			function realTime() {
+				const {duration, currentTime} = myAudio;
+				durationBar.max = duration;
+				durationBar.value = currentTime;
+				durationBar.style.backgroundSize = (currentTime / duration) * 100 + "% 100%";
+				crtTime.textContent = formatTimer(currentTime);
+				if (!duration) {
+					drnTime.textContent = "00:00";
+				} else {
+					drnTime.textContent = formatTimer(duration);
+				}
+			}
+			durationBar.addEventListener("input", () => {
+				myAudio.currentTime = durationBar.value;
+			});
+			myAudio.addEventListener("ended", () => {
+				if (loopStatus === "repeat") {
+					indexSong += 1;
+					if (indexSong >= tracks.length) {
+						indexSong = 0;
+					}
+					myAudio.currentTime = 10;
+				}
+				else if (loopStatus === "shuffle") {
+					indexSong = Math.floor(Math.random() * (tracks.length));
+					myAudio.currentTime = 0;
+				}
+				else if (loopStatus === "repeat_one") {
+					myAudio.currentTime = 0;
+				}
+				init(indexSong);
+				session(indexSong);
+				myAudio.play();
+				myAudio.currentTime = 0;
+				for (let a = 0; a < btnPlayList.length; a++) {
+					song[a].classList.remove("song-playing");
+					song[indexSong].setAttribute("class", "song-playing");
+				}
+			});
+			const replState = document.getElementById("repl"),
+				  playState = document.getElementById("play"),
+				  prevState = document.getElementById("prev"),
+				  nextState = document.getElementById("next"),
+				  muteState = document.getElementById("mute"),
+				  loopState = document.getElementById("loop");
+
+			replState.addEventListener("click", () => {
+				myAudio.currentTime = 0;
+			});
+			playState.addEventListener("click", () => {
+				if (playStatus === "play_arrow") {
+					myAudio.play();
+					playStatus = "pause";
+					playState.textContent = playStatus;
+					stt.textContent = "Playing...";
+				}
+				else {
+					myAudio.pause();
+					playStatus = "play_arrow";
+					playState.textContent = playStatus;
+					stt.textContent = "Paused...";
+				}
+			});
+			muteState.addEventListener("input", () => {
+				const setValue = muteState.value;
+				myAudio.volume = setValue;
+				muteState.style.backgroundSize = setValue * 100 + '% 100%';
+				if (setValue <= 0.5) {
+					muteIcon.innerHTML = "volume_down";
+					if (setValue == 0) {
+						muteIcon.textContent = "volume_off";
+					}
+				}
+				else {
+					muteIcon.textContent = "volume_up";
+				}
+			});
+			loopState.addEventListener("click", () => {
+				if (loopStatus === "repeat") {
+					loopStatus = "repeat_one";
+					loopState.textContent = loopStatus;
+				}
+				else if (loopStatus === "repeat_one") {
+					loopStatus = "shuffle";
+					loopState.textContent = loopStatus;
+				}
+				else if (loopStatus === "shuffle") {
+					loopStatus = "repeat";
+					loopState.textContent = loopStatus;
+				}
+				session(loopStatus);
+			});
+			// prevState.addEventListener("click", () => {
+			// 	if (myAudio.currentTime >= 60) {
+			// 		myAudio.pause();
+			// 		myAudio.currentTime = 0;
+			// 		playStatus = "play_arrow";
+			// 		playState.textContent = playStatus;
+			// 	}
+			// 	else {
+			// 		changSong(-1);
+			// 	}
+			// });
+
+			// nextState.addEventListener("click", () => {
+			// 	changSong(1);
+			// });
+			function init(indexSong) {
+				myAudio.setAttribute("src", "http://api.mp3.zing.vn/api/streaming/audio/" + regId(tracks[indexSong].url) + "/320");
+				myAudio.currentTime = 0;
+				// console.log($(".song-playing .metaSong #title")[0]);
+			}
+			function formatTimer(number) {
+				const minutes = Math.floor(number / 60);
+				const seconds = Math.floor(number - minutes * 60);
+				return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+			}
+			function session(e) {
+				if (e === indexSong) {
+					sessionStorage.setItem("indexSong", indexSong);
+				}
+				else if (e === loopStatus) {
+					sessionStorage.setItem("loopStatus", loopStatus);
+				}
+			}
+			function $(e) {
+				return document.querySelectorAll(e);
+			}
+			function regId(e) {
+				return e
+					.replace(/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)(.html)/g, "$2")
+					.replace(/view-source:/g, "")
+					.replace(/https:\/\/mp3.zing.vn\//g, "")
+					.replace(/bai-hat\//g, "")
+					.replace(/\//g, "")
+				;
+			}
+			// console.log($(".msPlayer .msPlayList #song.song-playing .metaSong #title")[0].innerText);
+		</script>
+	</body>
+</html>

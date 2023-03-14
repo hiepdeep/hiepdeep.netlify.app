@@ -1,0 +1,19 @@
+{
+    "name": "HiepDeep FIH",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description" : "Extension for HiepDeep FIH",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.google.com/*"
+            ],
+            "css": [
+                "main.css"
+            ],
+            "js": [
+                "main.js"
+            ]
+        }
+    ]
+}

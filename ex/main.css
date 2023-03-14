@@ -1,0 +1,21 @@
+body {
+	background: rgba(0, 0, 0, 0.2) !important;
+}
+
+button.hiepdeptrai {
+	background: green;
+	position: fixed;
+	border: 0;
+	left: 24px;
+	bottom: 24px;
+	cursor: pointer;
+	width: 120px;
+	height: 120px;
+	background: linear-gradient(45deg, #00F2AA, #0083FF);
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 32% 68% 50% 50% / 60% 39% 61% 40%;
+	box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+}
