@@ -356,10 +356,6 @@
 					"url": "view-source:https://mp3.zing.vn/Ngay-Mai-Em-Di-Mat-Khai-Dang-Dat-G/ZZEF769O.html",
 					"key": "ZnxHtLZBBiZBgZEymyvmZmTkhNJGdphkN"
 				},
-				// {
-				// 	"url": "view-source:https://mp3.zing.vn/bai-hat/So-Ngo-Nhan-Quan-Dao/IWABA8AO.html",
-				// 	"key": "kHcHyQdiCpZWyHtFHZHyLCscmVaJsa"
-				// },
 				{
 					"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Nguoc-Chieu-Chu-Thuy-Quynh/ZZCEDCZA.html",
 					"key": "LHxHyZLdZNNCicCyntFmkmtLCNxHBiGap"
@@ -435,6 +431,15 @@
 				}
 			}
 			$(".msPlayList")[0].innerHTML += pll;
+			function titlinggg(e) {
+				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[e].key}`;
+				async function getapi(url) {
+					const response = await fetch(url);
+					var data = await response.json();
+					document.querySelectorAll("#titling")[0].innerHTML = `${data.data.name}`;
+				}
+				getapi(apiSong);
+			}
 			for (let i = 0; i < tracks.length; i++) {
 				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[i].key}`;
 				async function getapi(url) {
@@ -459,6 +464,7 @@
 				getapi(apiSong);
 			}
 			init(indexSong);
+			titlinggg(indexSong);
 			session(indexSong);
 			session(loopStatus);
 			const btnPlayList = document.querySelectorAll(".msPlayer .msPlayList #song");
@@ -469,6 +475,7 @@
 					init(indexSong);
 					// scrollWin(indexSong);
 					session(indexSong);
+					titlinggg(indexSong);
 					myAudio.currentTime = 0;
 					myAudio.play();
 					playStatus = "pause";
@@ -476,7 +483,6 @@
 					for (let a = 0; a < btnPlayList.length; a++) {
 						song[a].classList.remove("song-playing");
 						song[l].setAttribute("class", "song-playing");
-						stt.textContent = "Playing...";
 					}
 				});
 			}
@@ -519,6 +525,7 @@
 				}
 				init(indexSong);
 				session(indexSong);
+				titlinggg(indexSong);
 				myAudio.play();
 				myAudio.currentTime = 0;
 				for (let a = 0; a < btnPlayList.length; a++) {
@@ -590,14 +597,12 @@
 			// 		changSong(-1);
 			// 	}
 			// });
-
 			// nextState.addEventListener("click", () => {
 			// 	changSong(1);
 			// });
 			function init(indexSong) {
 				myAudio.setAttribute("src", "http://api.mp3.zing.vn/api/streaming/audio/" + regId(tracks[indexSong].url) + "/320");
 				myAudio.currentTime = 0;
-				// console.log($(".song-playing .metaSong #title")[0]);
 			}
 			function formatTimer(number) {
 				const minutes = Math.floor(number / 60);
@@ -624,7 +629,6 @@
 					.replace(/\//g, "")
 				;
 			}
-			// console.log($(".msPlayer .msPlayList #song.song-playing .metaSong #title")[0].innerText);
 		</script>
 	</body>
 </html>
