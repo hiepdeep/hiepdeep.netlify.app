@@ -431,16 +431,6 @@
 				}
 			}
 			$(".msPlayList")[0].innerHTML += pll;
-			function titlinggg(e) {
-				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[e].key}`;
-				async function getapi(url) {
-					const response = await fetch(url);
-					var data = await response.json();
-					document.querySelectorAll("#titling")[0].innerHTML = `${data.data.name}`;
-					document.title += ` | ${data.data.name}`;
-				}
-				getapi(apiSong);
-			}
 			for (let i = 0; i < tracks.length; i++) {
 				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[i].key}`;
 				async function getapi(url) {
@@ -601,6 +591,16 @@
 			// nextState.addEventListener("click", () => {
 			// 	changSong(1);
 			// });
+			function titlinggg(e) {
+				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[e].key}`;
+				async function getapi(url) {
+					const response = await fetch(url);
+					var data = await response.json();
+					document.querySelectorAll("#titling")[0].innerHTML = `${data.data.name}`;
+					document.title = `HiepDeep | ${data.data.name}`;
+				}
+				getapi(apiSong);
+			}
 			function init(indexSong) {
 				myAudio.setAttribute("src", "http://api.mp3.zing.vn/api/streaming/audio/" + regId(tracks[indexSong].url) + "/320");
 				myAudio.currentTime = 0;
