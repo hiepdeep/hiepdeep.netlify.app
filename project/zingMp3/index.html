@@ -235,7 +235,6 @@
 				else {
 					changSong(-1);
 				}
-				stt.textContent = "Playing...";
 			});
 			nextState.addEventListener("click", () => {
 				changSong(1);
@@ -269,9 +268,11 @@
 				}
 				init(indexSong);
 				session(indexSong);
+				titlinggg(indexSong);
 				myAudio.play();
 				playStatus = "pause";
 				playState.textContent = playStatus;
+				stt.textContent = "Playing...";
 				for (let a = 0; a < btnPlayList.length; a++) {
 					song[a].classList.remove("song-playing");
 					song[indexSong].setAttribute("class", "song-playing");
