@@ -52,10 +52,10 @@
 			});
 			const replState = document.getElementById("repl"),
 				  playState = document.getElementById("play"),
-				  prevState = document.getElementById("prev"),
-				  nextState = document.getElementById("next"),
 				  muteState = document.getElementById("mute"),
-				  loopState = document.getElementById("loop");
+				  loopState = document.getElementById("loop"),
+				  prevState = document.getElementById("prev"),
+				  nextState = document.getElementById("next");
 			let indexSong   = 0,
 				playStatus  = "play_arrow",	// play_arrow | pause
 				loopStatus  = "repeat",		// repeat | repeat_one | shuffle
@@ -237,7 +237,6 @@
 				}
 				stt.textContent = "Playing...";
 			});
-
 			nextState.addEventListener("click", () => {
 				changSong(1);
 			});
@@ -271,8 +270,8 @@
 				init(indexSong);
 				session(indexSong);
 				myAudio.play();
-				playState.textContent = "pause";
 				playStatus = "pause";
+				playState.textContent = playStatus;
 				for (let a = 0; a < btnPlayList.length; a++) {
 					song[a].classList.remove("song-playing");
 					song[indexSong].setAttribute("class", "song-playing");
