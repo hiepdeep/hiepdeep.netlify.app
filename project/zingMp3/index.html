@@ -39,6 +39,10 @@
 				<button class="btn material-icons" id="loop">repeat</button>
 				<div id="buffered"></div>
 			</div>
+			<div class="changeBtn">
+				<button class="prev material-icons">west</button>
+				<button class="next material-icons">east</button>
+			</div>
 			<div class="msPlayList"></div>
 		</div>
 		<script type="text/javascript">
@@ -221,20 +225,22 @@
 				}
 				session(loopStatus);
 			});
-			// prevState.addEventListener("click", () => {
-			// 	if (myAudio.currentTime >= 60) {
-			// 		myAudio.pause();
-			// 		myAudio.currentTime = 0;
-			// 		playStatus = "play_arrow";
-			// 		playState.textContent = playStatus;
-			// 	}
-			// 	else {
-			// 		changSong(-1);
-			// 	}
-			// });
-			// nextState.addEventListener("click", () => {
-			// 	changSong(1);
-			// });
+			prevState.addEventListener("click", () => {
+				if (myAudio.currentTime >= 60) {
+					myAudio.pause();
+					myAudio.currentTime = 0;
+					playStatus = "play_arrow";
+					playState.textContent = playStatus;
+				}
+				else {
+					changSong(-1);
+				}
+				stt.textContent = "Playing...";
+			});
+
+			nextState.addEventListener("click", () => {
+				changSong(1);
+			});
 			function titlinggg(e) {
 				const apiSong = `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${tracks[e].key}`;
 				async function getapi(url) {
@@ -248,6 +254,29 @@
 			function init(indexSong) {
 				myAudio.setAttribute("src", "http://api.mp3.zing.vn/api/streaming/audio/" + regId(tracks[indexSong].url) + "/320");
 				myAudio.currentTime = 0;
+			}
+			function changSong(e) {
+				if (e === -1) {
+					indexSong--;
+					if (indexSong < 0) {
+						indexSong = tracks.length - 1;
+					}
+				}
+				else if (e === 1) {
+					indexSong++;
+					if (indexSong >= tracks.length) {
+						indexSong = 0;
+					}
+				}
+				init(indexSong);
+				session(indexSong);
+				myAudio.play();
+				playState.textContent = "pause";
+				playStatus = "pause";
+				for (let a = 0; a < btnPlayList.length; a++) {
+					song[a].classList.remove("song-playing");
+					song[indexSong].setAttribute("class", "song-playing");
+				}
 			}
 			function formatTimer(number) {
 				const minutes = Math.floor(number / 60);
