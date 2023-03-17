@@ -355,7 +355,7 @@
 				indexSong = sessionStorage.getItem("indexSong");
 			}
 			if (sessionStorage.getItem("loopStatus")) {
-				loopState = loopStatus = sessionStorage.getItem("loopStatus");
+				loopState.innerHTML = loopStatus = sessionStorage.getItem("loopStatus");
 			}
 			createAudio.setAttribute("id", "myAudio");
 			createAudio.setAttribute("preload", "");
