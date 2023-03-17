@@ -341,6 +341,12 @@
 			window.addEventListener("load", (event) => {
 				preloader.classList.add("finished");
 			});
+			const replState = document.getElementById("repl"),
+				  playState = document.getElementById("play"),
+				  prevState = document.getElementById("prev"),
+				  nextState = document.getElementById("next"),
+				  muteState = document.getElementById("mute"),
+				  loopState = document.getElementById("loop");
 			let indexSong   = 0,
 				playStatus  = "play_arrow",	// play_arrow | pause
 				loopStatus  = "repeat",		// repeat | repeat_one | shuffle
@@ -349,7 +355,7 @@
 				indexSong = sessionStorage.getItem("indexSong");
 			}
 			if (sessionStorage.getItem("loopStatus")) {
-				loopStatus = sessionStorage.getItem("loopStatus");
+				loopState = loopStatus = sessionStorage.getItem("loopStatus");
 			}
 			createAudio.setAttribute("id", "myAudio");
 			createAudio.setAttribute("preload", "");
@@ -464,13 +470,6 @@
 					song[indexSong].setAttribute("class", "song-playing");
 				}
 			});
-			const replState = document.getElementById("repl"),
-				  playState = document.getElementById("play"),
-				  prevState = document.getElementById("prev"),
-				  nextState = document.getElementById("next"),
-				  muteState = document.getElementById("mute"),
-				  loopState = document.getElementById("loop");
-
 			replState.addEventListener("click", () => {
 				myAudio.currentTime = 0;
 			});
