@@ -305,6 +305,7 @@
 				}
 			}
 		</style>
+		<script src="tracks.js"></script>
 	</head>
 	<body>
 		<div id="preloader">
@@ -340,7 +341,6 @@
 			window.addEventListener("load", (event) => {
 				preloader.classList.add("finished");
 			});
-			import "tracks.js";
 			let indexSong   = 0,
 				playStatus  = "play_arrow",	// play_arrow | pause
 				loopStatus  = "repeat",		// repeat | repeat_one | shuffle
