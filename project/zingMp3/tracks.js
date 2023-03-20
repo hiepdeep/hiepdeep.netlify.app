@@ -15,10 +15,10 @@ let tracks = [
 		"url": "view-source:https://mp3.zing.vn/bai-hat/So-Nguoi-Ta-Cuop-Mat-Em-Vu-Duy-Khanh/ZWB97B80.html",
 		"key": "kHxHtLncmHlzFJxymyFmLHyLgNRddaiFd"
 	},
-	{
-		"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Single-JanK/6B8E67CU.html",
-		"key": "kmJmtZkSbVNzsxiyntbGLmyZCaRddWNQF"
-	},
+	// {
+	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Single-JanK/6B8E67CU.html",
+	// 	"key": "kmJmtZkSbVNzsxiyntbGLmyZCaRddWNQF"
+	// },
 	{
 		"url": "view-source:https://mp3.zing.vn/bai-hat/Xin-Loi-Vi-Da-Xuat-Hien-Vu-Duy-Khanh/Z6Z8U6D0.html",
 		"key": "kmcntZkzmNxvCsFtmtFmLmyZhsJiuZsVl"
