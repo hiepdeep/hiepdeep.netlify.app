@@ -7,10 +7,18 @@ let tracks = [
 		"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-Roi-Cung-Khac-Lee-Phu-Quy/ZWAD7DFD.html",
 		"key": "ZGcntZHaivWJAuBtmtbmLGtZXNiHsbdih"
 	},
-	// {
-	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Single-JanK/6B8E67CU.html",
-	// 	"key": ""
-	// },
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Chia-Tay-Vi-Qua-Hieu-Vu-Duy-Khanh/ZZC0UWW0.html",
+		"key": "kHcnyZZdmJbmHmmtGtvHZGyZCaiBdNJCd"
+	},
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/So-Nguoi-Ta-Cuop-Mat-Em-Vu-Duy-Khanh/ZWB97B80.html",
+		"key": "kHxHtLncmHlzFJxymyFmLHyLgNRddaiFd"
+	},
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Single-JanK/6B8E67CU.html",
+		"key": "kmJmtZkSbVNzsxiyntbGLmyZCaRddWNQF"
+	},
 	{
 		"url": "view-source:https://mp3.zing.vn/bai-hat/Xin-Loi-Vi-Da-Xuat-Hien-Vu-Duy-Khanh/Z6Z8U6D0.html",
 		"key": "kmcntZkzmNxvCsFtmtFmLmyZhsJiuZsVl"
