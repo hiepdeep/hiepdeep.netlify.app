@@ -4,10 +4,6 @@ let tracks = [
 	// 	"key": ""
 	// },
 	// {
-	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tinh-Yeu-Co-Con-Ton-Tai-Khai-Dang/ZZ90FZWC.html",
-	// 	"key": "kGxHyZLbNsFHZHxTntDGZmtLCsRgsNcxk"
-	// },
-	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Single-Khai-Dang/6BIC67UE.html",
 	// 	"key": ""
 	// },
@@ -46,6 +42,10 @@ let tracks = [
 	{
 		"url": "view-source:https://mp3.zing.vn/Ngay-Mai-Em-Di-Mat-Khai-Dang-Dat-G/ZZEF769O.html",
 		"key": "ZnxHtLZBBiZBgZEymyvmZmTkhNJGdphkN"
+	},
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Tinh-Yeu-Co-Con-Ton-Tai-Khai-Dang/ZZ90FZWC.html",
+		"key": "kGxHyZLbNsFHZHxTntDGZmtLCsRgsNcxk"
 	},
 	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Gio-Nguoc-Chieu-Chu-Thuy-Quynh/ZZCEDCZA.html",
