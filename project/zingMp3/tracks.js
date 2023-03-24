@@ -4,6 +4,14 @@ let tracks = [
 	// 	"key": ""
 	// },
 	// {
+	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tinh-Yeu-Co-Con-Ton-Tai-Khai-Dang/ZZ90FZWC.html",
+	// 	"key": "kGxHyZLbNsFHZHxTntDGZmtLCsRgsNcxk"
+	// },
+	// {
+	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Single-Khai-Dang/6BIC67UE.html",
+	// 	"key": ""
+	// },
+	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-Roi-Cung-Khac-Lee-Phu-Quy/ZWAD7DFD.html",
 	// 	"key": "ZGcntZHaivWJAuBtmtbmLGtZXNiHsbdih"
 	// },
