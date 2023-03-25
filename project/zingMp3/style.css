@@ -79,7 +79,6 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 	cursor: pointer;
 	-webkit-appearance: none;
-	transition: 0.15s;
 	position: relative;
 	--setduration: 0;
 }
@@ -161,6 +160,7 @@ body {
 	clip-path: polygon(0 0, var(--setmute) 0, var(--setmute) 100%, 0 100%);
 	left: 0;
 	top: 0;
+	transition: 0.15s;
 }
 
 .msPlayer .msControl .mute #mute::-webkit-slider-thumb {
