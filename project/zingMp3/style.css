@@ -83,6 +83,20 @@ body {
 	cursor: pointer;
 	-webkit-appearance: none;
 	transition: 0.15s;
+	position: relative;
+	--setduration: 0;
+}
+
+.msPlayer .msControl .durationBar #durationBar:before {
+	content: "";
+	position: absolute;
+	background-image: linear-gradient(to right, #00b3ff, #00ffff);
+	width: 100%;
+	height: 100%;
+	clip-path: polygon(0 0, var(--setduration) 0, var(--setduration) 100%, 0 100%);
+	left: 0;
+	top: 0;
+	transition: 0.15s;
 }
 
 .msPlayer .msControl .durationBar #durationBar::-webkit-slider-thumb {
@@ -140,6 +154,19 @@ body {
 	cursor: pointer;
 	-webkit-appearance: none;
 	transition: 0.15s;
+	position: relative;
+	--setmute: 100%;
+}
+
+.msPlayer .msControl .mute #mute:before {
+	content: "";
+	position: absolute;
+	background-image: linear-gradient(to right, #00b3ff, #00ffff);
+	width: 100%;
+	height: 100%;
+	clip-path: polygon(0 0, var(--setmute) 0, var(--setmute) 100%, 0 100%);
+	left: 0;
+	top: 0;
 }
 
 .msPlayer .msControl .mute #mute::-webkit-slider-thumb {

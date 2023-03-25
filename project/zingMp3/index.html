@@ -137,7 +137,7 @@
 				const {duration, currentTime} = myAudio;
 				durationBar.max = duration;
 				durationBar.value = currentTime;
-				durationBar.style.backgroundSize = (currentTime / duration) * 100 + "% 100%";
+				durationBar.style.setProperty("--setduration", (currentTime / duration) * 100 + "%");
 				crtTime.textContent = formatTimer(currentTime);
 				if (!duration) {
 					drnTime.textContent = "00:00";
@@ -199,7 +199,7 @@
 			muteState.addEventListener("input", () => {
 				const setValue = muteState.value;
 				myAudio.volume = setValue;
-				muteState.style.backgroundSize = setValue * 100 + '% 100%';
+				muteState.style.setProperty("--setmute", setValue * 100 + "%");
 				if (setValue <= 0.5) {
 					muteIcon.innerHTML = "volume_down";
 					if (setValue == 0) {
