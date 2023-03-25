@@ -4,10 +4,6 @@ let tracks = [
 	// 	"key": ""
 	// },
 	// {
-	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Single-Khai-Dang/6BIC67UE.html",
-	// 	"key": ""
-	// },
-	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-Roi-Cung-Khac-Lee-Phu-Quy/ZWAD7DFD.html",
 	// 	"key": "ZGcntZHaivWJAuBtmtbmLGtZXNiHsbdih"
 	// },
@@ -39,6 +35,10 @@ let tracks = [
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Tro-Dua-Final-Version-Quang-Dang-Tran-Kanzi/ZZW7A099.html",
 	// 	"key": "ZHcmTLkbHxLaZNstmyFnZnyZhaJhvaSia"
 	// },
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Single-Khai-Dang/6BIC67UE.html",
+		"key": "ZHcmtLZvsSuJamptGyvGLmykgNRNaCLXS"
+	},
 	{
 		"url": "view-source:https://mp3.zing.vn/Ngay-Mai-Em-Di-Mat-Khai-Dang-Dat-G/ZZEF769O.html",
 		"key": "ZnxHtLZBBiZBgZEymyvmZmTkhNJGdphkN"
