@@ -3,6 +3,10 @@ let tracks = [
 	// 	"url": "",
 	// 	"key": ""
 	// },
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Mot-Buoc-Yeu-Van-Dam-Dau-Mr-Siro/ZWABWOFZ.html",
+		"key": "kmJnTZGsukHAVNdtmyvGLHyZCsisNNQBW"
+	},
 	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-Roi-Cung-Khac-Lee-Phu-Quy/ZWAD7DFD.html",
 	// 	"key": "ZGcntZHaivWJAuBtmtbmLGtZXNiHsbdih"
