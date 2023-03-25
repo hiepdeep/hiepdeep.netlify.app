@@ -36,7 +36,7 @@ let tracks = [
 	// 	"key": "ZHcmTLkbHxLaZNstmyFnZnyZhaJhvaSia"
 	// },
 	{
-		"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Single-Khai-Dang/6BIC67UE.html",
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Tha-La-Khai-Dang/ZZ8D9UZI.html",
 		"key": "ZHcmtLZvsSuJamptGyvGLmykgNRNaCLXS"
 	},
 	{
