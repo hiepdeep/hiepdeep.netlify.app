@@ -3,10 +3,6 @@ let tracks = [
 	// 	"url": "",
 	// 	"key": ""
 	// },
-	{
-		"url": "view-source:https://mp3.zing.vn/bai-hat/Mot-Buoc-Yeu-Van-Dam-Dau-Mr-Siro/ZWABWOFZ.html",
-		"key": "kmJnTZGsukHAVNdtmyvGLHyZCsisNNQBW"
-	},
 	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-Roi-Cung-Khac-Lee-Phu-Quy/ZWAD7DFD.html",
 	// 	"key": "ZGcntZHaivWJAuBtmtbmLGtZXNiHsbdih"
@@ -71,18 +67,22 @@ let tracks = [
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Ai-That-Long-Thuong-Em-Ly-Tuan-Kiet/ZWAF6AUE.html",
 	// 	"key": "LHxHtknsRBJzQFCyHTFmLHykCaJHduXLX"
 	// },
-	{
-		"url": "view-source:https://mp3.zing.vn/bai-hat/Buoc-Qua-Doi-Nhau-Le-Bao-Binh/ZWAE8CBC.html",
-		"key": "ZHcmTLmsudFaJmlyHybnLnTZgNJnBismm"
-	},
+	// {
+	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Buoc-Qua-Doi-Nhau-Le-Bao-Binh/ZWAE8CBC.html",
+	// 	"key": "ZHcmTLmsudFaJmlyHybnLnTZgNJnBismm"
+	// },
 	{
 		"url": "view-source:https://mp3.zing.vn/bai-hat/Thay-Toi-Yeu-Co-Ay-Thanh-Hung/ZWAEU0EE.html",
 		"key": "LnxGtLmsRBHcduxynyFmkHyZXaJnBRNFz"
 	},
-	{
-		"url": "view-source:https://mp3.zing.vn/bai-hat/Dung-Nguoi-Dung-Thoi-Diem-Thanh-Hung/ZWAWZ0AI.html",
-		"key": "ZnxHyLHNxQbWiJpyGTFHLHyZCNJGdicGi"
+	// {
+	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Dung-Nguoi-Dung-Thoi-Diem-Thanh-Hung/ZWAWZ0AI.html",
+	// 	"key": "ZnxHyLHNxQbWiJpyGTFHLHyZCNJGdicGi"
 	// },
+	{
+		"url": "view-source:https://mp3.zing.vn/bai-hat/Mot-Buoc-Yeu-Van-Dam-Dau-Mr-Siro/ZWABWOFZ.html",
+		"key": "kmJnTZGsukHAVNdtmyvGLHyZCsisNNQBW"
+	}
 	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Roi-Bo-Hoa-Minzy/ZW9C0DOU.html",
 	// 	"key": "LmJHtLnNJLZWpHJTnyDHZGTZCNJGdRRpx"
@@ -90,5 +90,5 @@ let tracks = [
 	// {
 	// 	"url": "view-source:https://mp3.zing.vn/bai-hat/Chap-Nhan-Hoa-Minzy/ZW9EAI76.html",
 	// 	"key": "kGxntZmscFcSWdltHyDnkHyLgaxmBEJhC"
-	}
+	// }
 ]
