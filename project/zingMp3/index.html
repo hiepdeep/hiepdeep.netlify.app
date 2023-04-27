@@ -69,6 +69,22 @@
 			createAudio.setAttribute("id", "myAudio");
 			createAudio.setAttribute("preload", "");
 			document.body.appendChild(createAudio);
+			document.addEventListener("keypress", function (e) {
+				if (e.which == 32) {
+					if (myAudio.paused) {
+						myAudio.play();
+						playStatus = "pause";
+						playState.textContent = playStatus;
+						stt.textContent = "Playing...";
+					}
+					else {
+						myAudio.pause();
+						playStatus = "play_arrow";
+						playState.textContent = playStatus;
+						stt.textContent = "Paused...";
+					}
+				}
+			});
 			let pll = "";
 			for (let i = 0; i < tracks.length; i++) {
 				if (!tracks[i].url == "" && !tracks[i].key == "") {
