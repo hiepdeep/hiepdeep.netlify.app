@@ -84,6 +84,32 @@
 						stt.textContent = "Paused...";
 					}
 				}
+				if (e.code == "NumpadSubtract") {
+					if (myAudio.volume == 0) {
+						myAudio.volume = 0;
+					}
+					else {
+						myAudio.volume = myAudio.volume - 0.25;
+					}
+				}
+				if (e.code == "NumpadAdd") {
+					if (myAudio.volume == 1) {
+						myAudio.volume = 1;
+					}
+					else {
+						myAudio.volume = myAudio.volume + 0.25;
+					}
+				}
+				muteState.style.setProperty("--setmute", myAudio.volume * 100 + "%");
+				if (myAudio.volume <= 0.5) {
+					muteIcon.innerHTML = "volume_down";
+					if (myAudio.volume == 0) {
+						muteIcon.textContent = "volume_off";
+					}
+				}
+				else {
+					muteIcon.textContent = "volume_up";
+				}
 			});
 			let pll = "";
 			for (let i = 0; i < tracks.length; i++) {
