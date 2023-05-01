@@ -321,10 +321,11 @@ body {
 
 #preloader svg circle {
 	fill: none;
+	stroke: #fff;
 	stroke-width: 20px;
 	stroke-linecap: round;
 	transition: 1s linear;
-	animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+	animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes rotate {
@@ -351,27 +352,5 @@ body {
 	100% {
 		stroke-dasharray: 565, 565;
 		stroke-dashoffset: 565;
-	}
-}
-
-@keyframes color {
-	0% {
-		stroke: #ea4335;
-	}
-
-	25% {
-		stroke: #4285f4;
-	}
-
-	50% {
-		stroke: #34a853;
-	}
-
-	75% {
-		stroke: #fbbc04;
-	}
-
-	100% {
-		stroke: #7248b9;
 	}
 }
