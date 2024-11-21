@@ -147,52 +147,52 @@
 			<div class="form">
 				<fieldset>
 					<legend>Lương cơ bản (vnd)</legend>
-					<input type="text" placeholder="0" id="i_00" value="8.600.000">
+					<input type="text" placeholder="5.000.000">
 				</fieldset>
 				<fieldset>
 					<legend>Giờ công thực tế (h)</legend>
-					<input type="text" placeholder="0" id="i_01" value="208" pattern="[0-9]*">
+					<input type="text" placeholder="208" value="208" pattern="[0-9]*">
 				</fieldset>
 				<fieldset>
 					<legend>Nghỉ hưởng lương (h)</legend>
-					<input type="text" placeholder="0" id="i_02" pattern="[0-9]*">
+					<input type="text" placeholder="0" pattern="[0-9]*">
 				</fieldset>
 				<fieldset>
 					<legend>Nghỉ không lương (h)</legend>
-					<input type="text" placeholder="0" id="i_03" pattern="[0-9]*">
+					<input type="text" placeholder="0" pattern="[0-9]*">
 				</fieldset>
 				<fieldset>
 					<legend>OT 150% (h)</legend>
-					<input type="text" placeholder="0" id="i_04" value="6" pattern="[0-9]*">
+					<input type="text" placeholder="0" pattern="[0-9]*">
 				</fieldset>
 				<fieldset>
 					<legend>OT 200% (h)</legend>
-					<input type="text" placeholder="0" id="i_05" pattern="[0-9]*">
+					<input type="text" placeholder="0" pattern="[0-9]*">
 				</fieldset>
 				<fieldset>
 					<legend>Phụ cấp nhà ở (vnd)</legend>
-					<span class="pc_nha">500.000</span>
+					<span class="pc_nha">0</span>
 				</fieldset>
 				<fieldset>
 					<legend>Phụ cấp đi lại (vnd)</legend>
-					<span class="pc_di_lai">300.000</span>
+					<span class="pc_di_lai">0</span>
 				</fieldset>
 				<fieldset>
 					<legend>Thưởng quý (vnd)</legend>
-					<input type="text" placeholder="0" id="i_08">
+					<input type="text" placeholder="0">
 				</fieldset>
 				<fieldset>
 					<legend>Thưởng khác (vnd)</legend>
-					<input type="text" placeholder="0" id="i_09" value="32.000">
+					<input type="text" placeholder="0" value="32.000">
 				</fieldset>
 				<fieldset>
 					<legend>Bảo hiểm (vnd)</legend>
-					<input hidden="hidden" type="text" placeholder="0" id="i_10">
+					<input hidden="hidden" type="text" placeholder="0">
 					<span class="baohiem">0</span>
 				</fieldset>
 				<fieldset>
 					<legend>Đoàn phí (vnd)</legend>
-					<input hidden="hidden" type="text" placeholder="0" id="i_11" value="47.000">
+					<input hidden="hidden" type="text" placeholder="0" value="47.000">
 					<span class="doanphi">47.000</span>
 				</fieldset>
 			</div>
@@ -215,8 +215,6 @@
 					"off_no": ip[3].value,
 					"ot_150": ip[4].value,
 					"ot_200": ip[5].value,
-					"pc_nha": "500000",
-					"pc_di_lai": "300000",
 					"thuong_quy": ip[6].value.replace(/\./gi, ""),
 					"thuong_khac": ip[7].value.replace(/\./gi, "")
 				};
@@ -225,8 +223,8 @@
 					"off": Math.round((formm1.lcb / 208) * formm1.off_yes).toString(),
 					"ot150": Math.round(((formm1.lcb / formm1.h) * formm1.ot_150) * 1.5).toString(),
 					"ot200": Math.round(((formm1.lcb / formm1.h) * formm1.ot_200) * 2).toString(),
-					"pc_nha": Math.round(formm1.pc_nha / 208 * formm1.h).toString(),
-					"pc_di_lai": Math.round(formm1.pc_di_lai / 208 * formm1.h).toString(),
+					"pc_nha": Math.round(500000 / 208 * formm1.h).toString(),
+					"pc_di_lai": Math.round(300000 / 208 * formm1.h).toString(),
 					"baohiem": Math.round(formm1.lcb * 0.105).toString(),
 					"doanphi": document.getElementsByClassName("doanphi")[0].innerText.replace(/\./gi, "")
 				};
