@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vn">
+	<head>
+		<meta charset="UTF-8">
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<link rel="icon" href="https://hiepdeep.github.io/library/favicon/logo-light.ico">
+		<title>Generator Path</title>
+		<link rel="stylesheet" href="https://hiepdeep.github.io/library/style/all.css">
+		<style>
+			@charset "UTF-8";
+			* {
+				font-family: "Bai Jamjuree", sans-serif;
+				font-size: 12px;
+				color: #171a1c;
+			}
+			:root {
+				--bdrs: 4px;
+				--bd-color: hsl(210deg 10% 90%);
+				--color-1: hsl(210deg 10% 60%);
+				--color-2: hsl(210deg 10% 30%);
+			}
+			body {
+				background: #f1f2f4;
+			}
+			input[type=checkbox],
+			input[type=radio] {
+				-webkit-appearance: none;
+				background: 0;
+				border: 1px solid var(--bd-color);
+				border-radius: var(--bdrs);
+				width: 20px;
+				height: 20px;
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			input[type=checkbox]:checked,
+			input[type=radio]:checked {
+				border: 0;
+			}
+			input[type=checkbox]:checked:before,
+			input[type=radio]:checked:before {
+				content: "";
+				font-family: "Material Symbols Rounded";
+				background: #009688;
+				color: white;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				line-height: 20px;
+			}
+			.box {
+				display: flex;
+				height: 100vh;
+			}
+			.box .col {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+			.box .col.paint {
+				width: 100%;
+				height: 100%;
+				padding: 12px;
+				justify-content: center;
+				align-items: center;
+			}
+			.box .col.paint svg {
+				background: white;
+			}
+			.box .col.paint svg #generator-path {
+				fill: none;
+				stroke: #607d8b;
+				stroke-width: 0.05;
+				stroke-linecap: round;
+			}
+			.box .col.paint svg #draggable-dot circle {
+				transition: 0.1s cubic-bezier(0.5, 0, 0.5, 1);
+			}
+			.box .col.paint svg #draggable-dot circle:hover {
+				cursor: grab;
+				r: 0.2;
+			}
+			.box .col.paint svg #draggable-dot circle:active {
+				cursor: grabbing;
+			}
+			.box .col.data {
+				width: 100%;
+				height: 100%;
+				padding: 12px;
+			}
+			.box .col.data .row {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.box .col.settings {
+				flex-shrink: 0;
+				width: 280px;
+				background: white;
+				border-left: 1px solid var(--bd-color);
+				color: white;
+				padding: 12px;
+				user-select: none;
+			}
+			.box .col.settings .settingsGr {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+			.box .col.settings .settingsGr .item {
+				display: flex;
+				gap: 12px;
+			}
+			.box .col.settings .settingsGr .item label {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				cursor: pointer;
+			}
+			.box .col.settings .settingsGr .item label .text {
+				width: 100%;
+			}
+			.box .col.settings .settingsGr .item label input {
+				flex-shrink: 0;
+			}
+			.box .col.settings .settingsGr .item.size fieldset {
+				border: 1px solid var(--bd-color);
+				border-radius: var(--bdrs);
+				margin-inline-start: 0;
+				margin-inline-end: 0;
+				width: 100%;
+			}
+			.box .col.settings .settingsGr .item.size fieldset legend {
+				margin-left: 0.5rem;
+				background: #FFF;
+				color: var(--color-1);
+				padding: 0 6px;
+				user-select: none;
+			}
+			.box .col.settings .settingsGr .item.size fieldset input {
+				width: 100%;
+				background: 0;
+				border: 0;
+				color: var(--color-2);
+				height: 24px;
+				padding: 0 12px 6px;
+			}
+			.box .col.settings .settingsGr .item.checkboxGr {
+				flex-direction: column;
+			}
+			.box .col.settings .settingsGr .item.checkboxGr label .text {
+				color: var(--color-1);
+				text-align: left;
+			}
+			.box .col.settings .settingsGr .item.optionsGr label {
+				border: 1px solid var(--bd-color);
+				border-radius: var(--bdrs);
+				padding: 12px;
+			}
+			.box .col.settings .settingsGr .item.optionsGr label .text {
+				color: var(--color-2);
+				text-align: right;
+				font-size: 14px;
+			}
+			.box .col.settings .settingsGr .item.btnGr {
+				flex-direction: column;
+			}
+			.box .col.settings .settingsGr .item.btnGr button {
+				border-radius: var(--bdrs);
+				width: 100%;
+				padding: 12px;
+			}
+			.box .col.settings .textarea {
+				height: 100%;
+			}
+			.box .col.settings .textarea #textarea-path {
+				width: 100%;
+				height: 100%;
+				border: 1px solid var(--bd-color);
+				border-radius: var(--bdrs);
+				padding: 12px;
+				text-align: justify;
+			}
+			.box .col.settings .textarea #textarea-path span {
+				display: inline;
+				font-weight: 500;
+			}
+			.box .col.settings .textarea #textarea-path span.L {
+				color: #f44336;
+			}
+			.box .col.settings .textarea #textarea-path span.Q {
+				color: #795548;
+			}
+			.box .col.settings .textarea #textarea-path span.C {
+				color: #2196f3;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="col paint">
+				<svg id="svgElement">
+					<g id="background-grid"></g>
+					<g id="dashed-line"></g>
+					<path id="generator-path" d=""></path>
+					<g id="draggable-dot"></g>
+				</svg>
+			</div>
+			<div class="col settings">
+				<div class="settingsGr">
+					<div class="item size">
+						<fieldset>
+							<legend>Width:</legend>
+							<input type="number" id="svg-width" value="7" min="1">
+						</fieldset>
+						<fieldset>
+							<legend>Height:</legend>
+							<input type="number" id="svg-height" value="6" min="1">
+						</fieldset>
+						<fieldset>
+							<legend>Gap:</legend>
+							<input type="number" id="grid-spacing" value="1" min="0.1" step="0.1">
+						</fieldset>
+					</div>
+					<div class="item checkboxGr">
+						<label for="show-grid">
+							<span class="text">Hiển thị lưới:</span>
+							<input type="checkbox" id="show-grid" checked>
+						</label>
+						<label for="show-points">
+							<span class="text">Hiển thị điểm & nét đứt:</span>
+							<input type="checkbox" id="show-points" checked>
+						</label>
+						<label for="close-path">
+							<span class="text">Kết thúc bằng Z:</span>
+							<input type="checkbox" id="close-path">
+						</label>
+					</div>
+					<div class="item optionsGr">
+						<label for="option-line">
+							<input type="radio" name="btn-option" id="option-line" value="option-line" checked>
+							<span class="text">L</span>
+						</label>
+						<label for="option-quadratic">
+							<input type="radio" name="btn-option" id="option-quadratic" value="option-quadratic">
+							<span class="text">Q</span>
+						</label>
+						<label for="option-cubic">
+							<input type="radio" name="btn-option" id="option-cubic" value="option-cubic">
+							<span class="text">C</span>
+						</label>
+					</div>
+					<div class="item btnGr">
+						<button btn-style blue id="add-point">Thêm điểm mới</button>
+						<button btn-style orange id="remove-point">Xóa điểm cuối</button>
+						<button btn-style red id="reset-path">Xoá tất cả</button>
+					</div>
+				</div>
+				<div class="textarea">
+					<div id="textarea-path" role="textbox" contenteditable="plaintext-only"></div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			console.clear();
+			document.addEventListener("DOMContentLoaded", () => {
+				const svgElement = document.getElementById("svgElement");
+				const svg_width_input = document.getElementById("svg-width");
+				const svg_height_input = document.getElementById("svg-height");
+				const gridSpacingInput = document.getElementById("grid-spacing");
+				const backgroundGrid = document.getElementById("background-grid");
+				const dashedLineGroup = document.getElementById("dashed-line");
+				const generatorPath = document.getElementById("generator-path");
+				const draggableDotGroup = document.getElementById("draggable-dot");
+				const showGridCheckbox = document.getElementById("show-grid");
+				const showPointsCheckbox = document.getElementById("show-points");
+				const closePathCheckbox = document.getElementById("close-path");
+				const addPointButton = document.getElementById("add-point");
+				const removePointButton = document.getElementById("remove-point");
+				const resetPathButton = document.getElementById("reset-path");
+				const textareaPathDiv = document.getElementById("textarea-path");
+				const btnImport = document.getElementById("btn-import-path");
+				const txtImport = document.getElementById("txt-import-path");
+				let axis = [
+					{
+						type: "M",
+						points: [{x: 1, y: 2}]
+					},
+					{
+						type: "L",
+						points: [{x: 2, y: 2}]
+					},
+					{
+						type: "Q",
+						points: [{x: 3, y: 3}, {x: 4, y: 2}]
+					},
+					{
+						type: "C",
+						points: [{x: 5, y: 1}, {x: 5, y: 3}, {x: 6, y: 2}]
+					},
+					{
+						type: "L",
+						points: [{x: 6, y: 5}]
+					}
+				];
+				let currentDrag = null;
+				const generatePathString = () => {
+					let pathString = "";
+					axis.forEach(segment => {
+						const points = segment.points.map(p => `${p.x} ${p.y}`).join(", ");
+						pathString += `${segment.type} ${points} `;
+					});
+					if (closePathCheckbox.checked) {
+						pathString += "Z";
+					}
+					return pathString.trim();
+				};
+				const updateTextareaPath = () => {
+					textareaPathDiv.innerHTML = "";
+					axis.forEach(segment => {
+						const span = document.createElement("span");
+						span.className = segment.type;
+						const points = segment.points.map(p => `${p.x} ${p.y}`).join(", ");
+						span.textContent = `${segment.type} ${points}`;
+						textareaPathDiv.appendChild(span);
+						textareaPathDiv.appendChild(document.createTextNode(" "));
+					});
+					if (closePathCheckbox.checked) {
+						const span = document.createElement("span");
+						span.className = "Z";
+						span.textContent = "Z";
+						textareaPathDiv.appendChild(span);
+					}
+				};
+				const updateGrid = () => {
+					const width = parseFloat(svg_width_input.value);
+					const height = parseFloat(svg_height_input.value);
+					const spacing = parseFloat(gridSpacingInput.value);
+					svgElement.setAttribute("viewBox", `0 0 ${width} ${height}`);
+					backgroundGrid.innerHTML = "";
+					if (spacing > 0) {
+						for (let x = spacing; x < width; x += spacing) {
+							const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line.setAttribute("x1", x);
+							line.setAttribute("y1", 0);
+							line.setAttribute("x2", x);
+							line.setAttribute("y2", height);
+							line.setAttribute("stroke", "hsl(210deg 10% 95%)");
+							line.setAttribute("stroke-width", "0.05");
+							backgroundGrid.appendChild(line);
+						}
+						for (let y = spacing; y < height; y += spacing) {
+							const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line.setAttribute("x1", 0);
+							line.setAttribute("y1", y);
+							line.setAttribute("x2", width);
+							line.setAttribute("y2", y);
+							line.setAttribute("stroke", "hsl(210deg 10% 95%)");
+							line.setAttribute("stroke-width", "0.05");
+							backgroundGrid.appendChild(line);
+						}
+					}
+				};
+				const updateDraggableDots = () => {
+					draggableDotGroup.innerHTML = "";
+					let pointIndex = 0;
+					axis.forEach((segment, segmentIndex) => {
+						const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+						group.setAttribute("data-point-title", segment.type);
+						group.setAttribute("data-point-id", segmentIndex);
+						segment.points.forEach((point, pIndex) => {
+							const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+							circle.setAttribute("cx", point.x);
+							circle.setAttribute("cy", point.y);
+							circle.setAttribute("r", 0.1);
+							circle.setAttribute("fill", "#263238");
+							circle.setAttribute("stroke", "white");
+							circle.setAttribute("stroke-width", "0.05");
+							circle.setAttribute("class", "draggable-point");
+							circle.setAttribute("data-segment-index", segmentIndex);
+							circle.setAttribute("data-point-index", pIndex);
+							group.appendChild(circle);
+						});
+						draggableDotGroup.appendChild(group);
+					});
+				};
+				const updateDashedLines = () => {
+					dashedLineGroup.innerHTML = "";
+					for (let i = 1; i < axis.length; i++) {
+						const prevSegment = axis[i - 1];
+						const currentSegment = axis[i];
+						if (currentSegment.type === "Q" && currentSegment.points.length === 2) {
+							const prevPoint = prevSegment.points[prevSegment.points.length - 1];
+							const controlPoint = currentSegment.points[0];
+							const endPoint = currentSegment.points[1];
+							const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+							group.setAttribute("data-point-title", "Q");
+							group.setAttribute("data-point-id", i);
+							const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line1.setAttribute("x1", prevPoint.x);
+							line1.setAttribute("y1", prevPoint.y);
+							line1.setAttribute("x2", controlPoint.x);
+							line1.setAttribute("y2", controlPoint.y);
+							line1.setAttribute("stroke", "hsl(210deg 10% 80%)");
+							line1.setAttribute("stroke-dasharray", "0.2, 0.2");
+							line1.setAttribute("stroke-width", "0.05");
+							line1.classList.add("dashed-line");
+							group.appendChild(line1);
+							const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line2.setAttribute("x1", endPoint.x);
+							line2.setAttribute("y1", endPoint.y);
+							line2.setAttribute("x2", controlPoint.x);
+							line2.setAttribute("y2", controlPoint.y);
+							line2.setAttribute("stroke", "hsl(210deg 10% 80%)");
+							line2.setAttribute("stroke-dasharray", "0.2, 0.2");
+							line2.setAttribute("stroke-width", "0.05");
+							line2.classList.add("dashed-line");
+							group.appendChild(line2);
+							dashedLineGroup.appendChild(group);
+						} else if (currentSegment.type === "C" && currentSegment.points.length === 3) {
+							const prevPoint = prevSegment.points[prevSegment.points.length - 1];
+							const control1 = currentSegment.points[0];
+							const control2 = currentSegment.points[1];
+							const endPoint = currentSegment.points[2];
+							const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+							group.setAttribute("data-point-title", "C");
+							group.setAttribute("data-point-id", i);
+							const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line1.setAttribute("x1", prevPoint.x);
+							line1.setAttribute("y1", prevPoint.y);
+							line1.setAttribute("x2", control1.x);
+							line1.setAttribute("y2", control1.y);
+							line1.setAttribute("stroke", "hsl(210deg 10% 80%)");
+							line1.setAttribute("stroke-dasharray", "0.2, 0.2");
+							line1.setAttribute("stroke-width", "0.05");
+							line1.classList.add("dashed-line");
+							group.appendChild(line1);
+							const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+							line2.setAttribute("x1", endPoint.x);
+							line2.setAttribute("y1", endPoint.y);
+							line2.setAttribute("x2", control2.x);
+							line2.setAttribute("y2", control2.y);
+							line2.setAttribute("stroke", "hsl(210deg 10% 80%)");
+							line2.setAttribute("stroke-dasharray", "0.2, 0.2");
+							line2.setAttribute("stroke-width", "0.05");
+							line2.classList.add("dashed-line");
+							group.appendChild(line2);
+							dashedLineGroup.appendChild(group);
+						}
+					}
+				};
+				const updateAll = () => {
+					const pathString = generatePathString();
+					generatorPath.setAttribute("d", pathString);
+					updateDraggableDots();
+					updateDashedLines();
+					updateTextareaPath();
+				};
+				const getPointFromEvent = (e) => {
+					const CTM = svgElement.getScreenCTM();
+					if (CTM === null) return null;
+					const svgPoint = svgElement.createSVGPoint();
+					svgPoint.x = e.clientX;
+					svgPoint.y = e.clientY;
+					const transformPoint = svgPoint.matrixTransform(CTM.inverse());
+					const spacing = parseFloat(gridSpacingInput.value);
+					return {
+						x: Math.round(transformPoint.x / spacing) * spacing,
+						y: Math.round(transformPoint.y / spacing) * spacing
+					};
+				};
+				const handleMouseDown = (e) => {
+					if (e.target.classList.contains("draggable-point")) {
+						currentDrag = {
+							element: e.target,
+							segmentIndex: parseInt(e.target.getAttribute("data-segment-index")),
+							pointIndex: parseInt(e.target.getAttribute("data-point-index"))
+						};
+					}
+				};
+				const handleMouseMove = (e) => {
+					if (currentDrag) {
+						e.preventDefault();
+						const newPoint = getPointFromEvent(e);
+						if (newPoint) {
+							const {segmentIndex, pointIndex} = currentDrag;
+							axis[segmentIndex].points[pointIndex].x = newPoint.x;
+							axis[segmentIndex].points[pointIndex].y = newPoint.y;
+							updateAll();
+						}
+					}
+				};
+				const handleMouseUp = () => {
+					currentDrag = null;
+				};
+				svg_width_input.addEventListener("change", () => {
+					updateGrid();
+				});
+				svg_height_input.addEventListener("change", () => {
+					updateGrid();
+				});
+				gridSpacingInput.addEventListener("change", () => {
+					updateGrid();
+				});
+				addPointButton.addEventListener("click", () => {
+					const lastPoint = axis[axis.length - 1].points.slice(-1)[0];
+					const newPointX = lastPoint.x + 1;
+					const newPointY = lastPoint.y;
+					const selectedOption = document.querySelector('input[name="btn-option"]:checked').value;
+					let newSegment = null;
+					switch (selectedOption) {
+						case "option-line":
+							newSegment = {
+								type: "L",
+								points: [{x: newPointX, y: newPointY}]
+							};
+							break;
+						case "option-quadratic":
+							newSegment = {
+								type: "Q",
+								points: [{x: newPointX,y: newPointY}, {x: newPointX + 1,y: newPointY}]
+							};
+							break;
+						case "option-cubic":
+							newSegment = {
+								type: "C",
+								points: [{x: newPointX,y: newPointY}, {x: newPointX + 1,y: newPointY}, {x: newPointX + 2,y: newPointY}]
+							};
+							break;
+						default:
+							return;
+					}
+					axis.push(newSegment);
+					updateAll();
+				});
+				removePointButton.addEventListener("click", () => {
+					if (axis.length > 1) {
+						axis.pop();
+						updateAll();
+					}
+				});
+				resetPathButton.addEventListener("click", () => {
+					axis = [
+						{
+							type: "M",
+							points: [{x: 1, y: 2}]
+						}
+					];
+					updateAll();
+				});
+				showGridCheckbox.addEventListener("change", () => {
+					backgroundGrid.style.display = showGridCheckbox.checked ? "" : "none";
+				});
+				showPointsCheckbox.addEventListener("change", () => {
+					draggableDotGroup.style.display = showPointsCheckbox.checked ? "" : "none";
+					dashedLineGroup.style.display = showPointsCheckbox.checked ? "" : "none";
+				});
+				closePathCheckbox.addEventListener("change", () => {
+					updateAll();
+				});
+				svgElement.addEventListener("mousedown", handleMouseDown);
+				svgElement.addEventListener("mousemove", handleMouseMove);
+				svgElement.addEventListener("mouseup", handleMouseUp);
+				svgElement.addEventListener("mouseleave", handleMouseUp);
+				updateGrid();
+				updateAll();
+			});
+		</script>
+	</body>
+</html>
