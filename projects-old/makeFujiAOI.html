@@ -203,17 +203,17 @@
 			console.clear();
 			if (typeof String.prototype.trim !== 'function') {
 				String.prototype.trim = function() {
-					return this.replace(/^\s+|\s+$/g, '');
+					return this.replace(/^\s+|\s+$/g, "");
 				};
 			}
 			function toggleClass(element, className, add) {
 				var currentClass = element.className;
 				var hasClass = currentClass.indexOf(className) > -1;
-				var regex = new RegExp('(\\s|^)' + className + '(\\s|$)');
+				var regex = new RegExp("(\\s|^)" + className + "(\\s|$)");
 				if (add === true && !hasClass) {
-					element.className = (currentClass + ' ' + className).trim();
+					element.className = (currentClass + " " + className).trim();
 				} else if (add === false && hasClass) {
-					element.className = currentClass.replace(regex, ' ').trim();
+					element.className = currentClass.replace(regex, " ").trim();
 				}
 			}
 			function vlookup(key, range, col) {
