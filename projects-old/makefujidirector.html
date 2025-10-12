@@ -209,46 +209,27 @@
 			}
 			document.getElementById("importMark").addEventListener("input", () => {
 				console.clear();
-				let arr0 = [];
-				let arr1 = [];
-				let arr2 = [];
-				let arr3 = [];
-				let txtMark = document.getElementById("importMark").value.trim().split("\n");
-				for (let x = 0; x < txtMark.length; x++) {
-					arr0.push([]);
-					for (let xx = 0; xx < txtMark[x].split("\t").length; xx++) {
-						arr0[x].push(txtMark[x].split("\t")[xx].trim());
+				const textarea = document.getElementById("importMark");
+				const lines = textarea.value.trim().split('\n');
+				const dataRows = lines.map(line => line.split('\t').map(cell => cell.trim()));
+				const numColumns = dataRows[0] ? dataRows[0].length : 0;
+				if (numColumns === 0) return;
+				const dataCols = Array.from({length: numColumns},(_, colIndex) => dataRows.map(row => row[colIndex] || ""));
+				const maxLengths = dataCols.map(col => col.reduce((max, cell) => Math.max(max, cell.length), 0));
+				const paddedCols = dataCols.map((col, colIndex) => {
+					const maxLength = maxLengths[colIndex];
+					return col.map(cell => cell.padEnd(maxLength, ' '));
+				});
+				const numRows = paddedCols[0].length;
+				let output = "";
+				for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
+					const rowData = paddedCols.map(col => col[rowIndex]);
+					output += rowData.join(' | ');
+					if (rowIndex < numRows - 1) {
+						output += '\n';
 					}
 				}
-				for (let x = 0; x < arr0[0].length; x++) {
-					arr1.push([]);
-					arr2.push([]);
-					arr3.push([]);
-					for (let xx = 0; xx < arr0.length; xx++) {
-						arr1[x].push(arr0[xx][x]);
-						arr2[x].push(arr0[xx][x].length);
-					}
-					arr3[x].push(Math.max(...arr2[x]));
-					for (let u = 0; u < arr1[x].length; u++) {
-						let uLength = arr1[x][u].length;
-						if (uLength < arr3[x]) {
-							for (let i = 0; i < (arr3[x] - uLength); i++) {arr1[x][u] += " "}
-						}
-					}
-				}
-				let ee = "";
-				for (let x = 0; x < arr1[0].length; x++) {
-					for (let xx = 0; xx < arr1.length; xx++) {
-						ee += arr1[xx][x];
-						if (xx < arr1.length - 1) {
-							ee += " | ";
-						}
-					}
-					if (x < arr1[0].length - 1) {
-						ee += "\n";
-					}
-				}
-				document.getElementById("importMark").value = ee;
+				textarea.value = output;
 			});
 			document.getElementById("addPartUnit").addEventListener("change", () => {
 				let read_file = new FileReader();
