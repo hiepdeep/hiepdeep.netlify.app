@@ -210,23 +210,23 @@
 			document.getElementById("importMark").addEventListener("input", () => {
 				console.clear();
 				const textarea = document.getElementById("importMark");
-				const lines = textarea.value.trim().split('\n');
+				const lines = textarea.value.trim().split("\n");
 				const dataRows = lines.map(line => line.split('\t').map(cell => cell.trim()));
 				const numColumns = dataRows[0] ? dataRows[0].length : 0;
 				if (numColumns === 0) return;
-				const dataCols = Array.from({length: numColumns},(_, colIndex) => dataRows.map(row => row[colIndex] || ""));
+				const dataCols = Array.from({length: numColumns}, (_, colIndex) => dataRows.map(row => row[colIndex] || ""));
 				const maxLengths = dataCols.map(col => col.reduce((max, cell) => Math.max(max, cell.length), 0));
 				const paddedCols = dataCols.map((col, colIndex) => {
 					const maxLength = maxLengths[colIndex];
-					return col.map(cell => cell.padEnd(maxLength, ' '));
+					return col.map(cell => cell.padEnd(maxLength, " "));
 				});
 				const numRows = paddedCols[0].length;
 				let output = "";
 				for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
 					const rowData = paddedCols.map(col => col[rowIndex]);
-					output += rowData.join(' | ');
+					output += rowData.join(" | ");
 					if (rowIndex < numRows - 1) {
-						output += '\n';
+						output += "\n";
 					}
 				}
 				textarea.value = output;
